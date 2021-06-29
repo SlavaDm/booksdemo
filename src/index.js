@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './index.scss';
+import firebase from 'firebase'
+import 'firebase/firestore'
+import 'firebase/auth'
+
+firebase.initializeApp({
+	apiKey: "AIzaSyCtYPC7_HR7MbH3BvN5rPgfQC3Pjv8M1u4",
+	authDomain: "book-collection-be281.firebaseapp.com",
+	projectId: "book-collection-be281",
+	storageBucket: "book-collection-be281.appspot.com",
+	messagingSenderId: "47570738890",
+	appId: "1:47570738890:web:c3ec515fbb05584d5d9e33"
+});
+
+export const Context = createContext(null)
+
+const auth = firebase.auth()
+
+const firestore = firebase.firestore()
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<Context.Provider value={{
+		firebase,
+		auth,
+		firestore
+	}}>
+		<App />
+	</Context.Provider>,
+	document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
